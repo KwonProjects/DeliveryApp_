@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/baseTxt"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="배달주문"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/orderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="18dp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/baseTxt"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <View
+        android:id="@+id/underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/gray_168"
+        app:layout_constraintStart_toStartOf="@+id/baseTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/baseTxt"
+        />
+
+
+
+        <ImageView
+            android:id="@+id/restaurantImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/underline" />
+
+        <TextView
+            android:id="@+id/restaurantTitleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="5dp"
+            android:text="식당이름"
+            app:layout_constraintBottom_toTopOf="@+id/orderContentText"
+            app:layout_constraintStart_toEndOf="@id/restaurantImage"
+            app:layout_constraintTop_toBottomOf="@+id/underline" />
+
+        <TextView
+            android:id="@+id/orderContentText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/reorderBtn"
+            app:layout_constraintEnd_toEndOf="@+id/underline"
+            app:layout_constraintStart_toEndOf="@id/restaurantImage" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reorderBtn"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_reorder_list_rebutton"
+            android:text="재주문"
+            android:textColor="@color/pink"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/restaurantImage" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reviewBtn"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_order_list_base_button"
+            android:text="리뷰쓰기"
+            android:textColor="@color/gray_168"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reorderBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/orderDetail"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_order_list_base_button"
+            android:text="주문상세"
+            android:textColor="@color/gray_168"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reviewBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

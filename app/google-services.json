@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "999187432016",
+    "project_id": "delivery-7c916",
+    "storage_bucket": "delivery-7c916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999187432016:android:beaf13a2f57bd78e5e8755",
+        "android_client_info": {
+          "package_name": "co.kr.kwon.deliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999187432016-2ppohfsn2p4bunskhhrhsavriqvjrb81.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.kr.kwon.deliveryapp",
+            "certificate_hash": "901bfa1ca25945d225cb5cc44022427daaf73635"
+          }
+        },
+        {
+          "client_id": "999187432016-47qmc1hrof1lt6a4ale8do1c315mgg2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD73O61g6F29hgaKPj-ygTnqX1mCFt3Tts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999187432016-47qmc1hrof1lt6a4ale8do1c315mgg2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
