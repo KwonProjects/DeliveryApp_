@@ -8,6 +8,7 @@ import co.kr.kwon.deliveryapp.data.entity.RestaurantReviewEntity
 import co.kr.kwon.deliveryapp.data.entity.ReviewEntity
 import co.kr.kwon.deliveryapp.data.repository.order.Result
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
@@ -19,14 +20,6 @@ class DefaultRestaurantReviewRepository(
 
     override suspend fun getReviews(restaurantTitle: String): Result =
         withContext(dispatcher) {
-            /*    return@withContext (0..10).map {
-                    RestaurantReviewEntity(
-                        id = 0,
-                        title = "제목 $it",
-                        description = "내용 $it",
-                        grade = (1..5).random(),
-                    )
-                }*/
             return@withContext try {
                 val snapshot = firestore
                     .collection("review")
@@ -67,17 +60,19 @@ class DefaultRestaurantReviewRepository(
             return@withContext result
         }
 
+    //unWrittenReview
     override suspend fun unWrittenReview(userId: String): Result = withContext(dispatcher) {
         return@withContext try {
-            val snapshot = firestore
+            val result: QuerySnapshot = firestore
                 .collection("order")
-                .whereEqualTo("userId",userId)
+                .whereEqualTo("userId", userId)
+                .whereEqualTo("writeReview",true)
                 .get()
                 .await()
-            Result.Success(snapshot.documents.map {
+            Result.Success(result.documents.map {
                 OrderEntity(
                     date = it.get("date") as Long,
-                    id = it.get("id") as String,
+                    id = it.id,
                     userId = it.get("userId") as String,
                     restaurantId = it.get("restaurantId") as Long,
                     foodMenuList = (it.get("orderMenuList") as ArrayList<Map<String, Any>>).map { food ->

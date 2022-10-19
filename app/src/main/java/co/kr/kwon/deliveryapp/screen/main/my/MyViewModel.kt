@@ -9,9 +9,11 @@ import co.kr.kwon.deliveryapp.data.preference.AppPreferenceManager
 import co.kr.kwon.deliveryapp.data.repository.order.OrderRepository
 import co.kr.kwon.deliveryapp.data.repository.order.Result
 import co.kr.kwon.deliveryapp.data.repository.review.RestaurantReviewRepository
+import co.kr.kwon.deliveryapp.model.restaurant.order.OrderHistoryModel
 import co.kr.kwon.deliveryapp.model.restaurant.order.OrderModel
 import co.kr.kwon.deliveryapp.model.review.UnWrittenReviewModel
 import co.kr.kwon.deliveryapp.screen.base.BaseViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,8 +40,6 @@ class MyViewModel(
         }
     }
 
-
-
     fun setUserInfo(firebase: FirebaseUser?) = viewModelScope.launch {
         firebase?.let { user ->
             when (val orderMenusResult = orderRepository.getAllOrderMenus(user.uid)) {
@@ -63,26 +63,31 @@ class MyViewModel(
         }
     }
 
+    //                    unReviewCheckAndSetUserInfo
+//                        MyState       myStateLiveData
+//                        userName = user.displayName ?: "익명",
+//                        userEmail = user.email.toString(),
 
-    fun unReviewCheckAndSetUserInfo(firebase: FirebaseUser?) = viewModelScope.launch {
-        firebase?.let { user ->
-            when (val reviewResult = reviewRepository.unWrittenReview(user.uid)) {
+
+    fun unReviewCheckAndSetUserInfo(firebaseAuth: FirebaseAuth?) = viewModelScope.launch {
+        firebaseAuth?.currentUser?.let { user ->
+            when (val orderMenusResult = reviewRepository.unWrittenReview(user.uid)) {
                 is Result.Success<*> -> {
-                    val reviewList : List<OrderEntity>  = reviewResult.data as List<OrderEntity>
-                    Log.e("MyViewModel","size : ${reviewList.size}")
+                    val orderList = orderMenusResult.data as List<OrderEntity>
+                    orderList.sortedWith(compareBy<OrderEntity> {it.date})
                     myStateLiveData.value = MyState.Success.checkReview(
                         userName = user.displayName ?: "익명",
                         userEmail = user.email.toString(),
                         profileImageUri = user.photoUrl,
-                        reviewList.map {review ->
+                        reviewList = orderList.map {
                             UnWrittenReviewModel(
-                                date = review.date,
-                                id = review.hashCode().toLong(),
-                                orderId = review.id,
-                                userId = review.userId,
-                                restaurantId = review.restaurantId,
-                                foodMenuList = review.foodMenuList,
-                                writeReview = review.writeReview
+                                date = it.date,
+                                id = it.hashCode().toLong(),
+                                orderId = it.id,
+                                userId = it.userId,
+                                restaurantId = it.restaurantId,
+                                foodMenuList = it.foodMenuList,
+                                writeReview = it.writeReview
                             )
                         }
                     )
@@ -90,15 +95,14 @@ class MyViewModel(
                 is Result.Error -> {
                     myStateLiveData.value = MyState.Error(
                         R.string.request_error,
-                        reviewResult.e
+                        orderMenusResult.e
                     )
-                    Log.e("MyViewModel","error : ${reviewResult.e}")
+                    Log.e("MyViewModel", "error : ${orderMenusResult.e}")
                 }
             }
         } ?: kotlin.run {
             myStateLiveData.value = MyState.Success.NotRegistered
         }
-
     }
 
 

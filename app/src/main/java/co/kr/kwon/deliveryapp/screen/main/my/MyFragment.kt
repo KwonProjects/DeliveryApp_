@@ -68,7 +68,7 @@ class MyFragment : BaseFragment<MyViewModel, FragmentMyBinding>() {
         recyclerView.adapter = adapter
         if (firebaseAuth.currentUser?.uid != null) {
             orderBottom.isGone(true)
-            viewModel.setUserInfo(firebaseAuth.currentUser)
+            viewModel.unReviewCheckAndSetUserInfo(firebaseAuth)
         } else {
             orderBottom.isVisible(true)
         }
@@ -109,7 +109,7 @@ class MyFragment : BaseFragment<MyViewModel, FragmentMyBinding>() {
     private fun handleSuccessState(state: MyState.Success) = with(binding) {
         progressBar.isGone(true)
         when (state) {
-            is MyState.Success.Registered -> {
+            is MyState.Success.checkReview -> {
                 handleRegisteredState(state)
             }
             is MyState.Success.NotRegistered -> {
@@ -120,7 +120,7 @@ class MyFragment : BaseFragment<MyViewModel, FragmentMyBinding>() {
         }
     }
 
-    private fun handleRegisteredState(state: MyState.Success.Registered) = with(binding) {
+    private fun handleRegisteredState(state: MyState.Success.checkReview) = with(binding) {
 
         profileGroup.isVisible(true)
         loginRequiredGroup.isGone(true)
@@ -128,8 +128,9 @@ class MyFragment : BaseFragment<MyViewModel, FragmentMyBinding>() {
         Log.e("MyFragment", "ProfileImage result : " + state.profileImageUri)
         userNameTextView.text = state.userName
         userEmail.text = state.userEmail
+        val List = state.reviewList
 
-        //adapter.submitList(state.reviewList)
+        adapter.submitList(state.reviewList)
     }
 
     private fun handleErrorState(state: MyState.Error) {

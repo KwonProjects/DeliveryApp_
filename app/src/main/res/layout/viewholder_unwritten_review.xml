@@ -17,25 +17,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/restaurantTitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        app:layout_constraintStart_toEndOf="@id/restaurantImage"
-        app:layout_constraintTop_toTopOf="@id/restaurantImage"
-        tools:text="식당 이름" />
 
     <TextView
         android:id="@+id/orderDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/restaurantTitleText"
-        app:layout_constraintTop_toBottomOf="@id/restaurantTitleText"
+        app:layout_constraintStart_toEndOf="@id/restaurantImage"
+        app:layout_constraintTop_toTopOf="@id/restaurantImage"
         tools:text="4.8" />
+
+    <TextView
+        android:id="@+id/restaurantTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/orderDate"
+        app:layout_constraintTop_toBottomOf="@id/orderDate"
+        tools:text="식당 이름" />
 
     <TextView
         android:id="@+id/menu_list"
@@ -43,17 +44,22 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/restaurantTitleText"
-        app:layout_constraintTop_toBottomOf="@id/orderDate"
-        tools:text="배달팁 0원~2,700원" />
+        app:layout_constraintTop_toBottomOf="@id/restaurantTitleText"
+        tools:text="Menu List" />
 
-    <Button
-        android:id="@+id/writeReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:text="@string/write_review"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/restaurantTitleText" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reviewBtn"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/shape_order_list_base_button"
+        android:text="리뷰쓰기"
+        android:textColor="@color/gray_168"
+        android:textSize="10sp"
+        app:layout_constraintTop_toTopOf="@+id/restaurantTitleText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
         android:layout_width="0dp"
